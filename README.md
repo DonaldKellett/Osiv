@@ -17,7 +17,7 @@ More on that later ;-)
 
 ## API
 
-See API.md
+This is the application programming interface (API) exposed to the client by a server that respects the Osiv API. See API.md for more details.
 
 ## License
 
