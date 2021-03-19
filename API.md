@@ -197,7 +197,31 @@ The server should respond with a JSON payload containing the following fields:
 
 ### `GET /logout`
 
-TODO
+Log out of an existing session with the associated token. The server expects the following query string parameters:
+
+- `token`: The token associated with the login session to be invalidated, e.g. `12345678`
+
+Unless the server encounters an error in which case a 5xx status code should be returned, the server should return one of the following status codes:
+
+- `200 OK`
+- `400 Bad Request`
+- `404 Not Found`
+
+#### `200 OK`
+
+The login session was successfully invalidated, i.e. the user logged out successfully. The server should reply with a JSON payload, but no fields are mandatory, e.g. `{}` is valid.
+
+#### `400 Bad Request`
+
+The request was malformed in some way, e.g. `token` was not provided. The server should reply with a JSON payload containing the following fields:
+
+- `"reason"`: The reason for the error, e.g. `"Token was not provided."`
+
+#### `404 Not Found`
+
+Any other error caused by the user. The server should reply with a JSON payload containing the following fields:
+
+- `"reason"`: The reason for the error, e.g. `"Unknown user error."`
 
 ## Account actions
 
