@@ -107,7 +107,49 @@ The server should respond with a JSON payload containing the following fields:
 
 ## Account modification
 
-TODO
+### `POST /reset`
+
+Reset the password for the account with the specified username provided that the action is authorized by the user's old password OR the master password. In a valid request to this endpoint, the user's old password and the master password should NOT appear simultaneously.
+
+The server expects a JSON payload with the following fields:
+
+- `"username"`: The username of the associated account, e.g. `"johndoe"`
+- `"oldPassword"`: The password associated with the account prior to the password change. This field should NOT appear simultaneously with the `"masterPassword"` field
+- `"masterPassword"`: The master password for the server. This field should NOT appear simultaneously with the `"oldPassword"` field
+- `"newPassword"`: The new password to be associated with the account. If the account's old password is used to authorize the action then the new password should differ from the old password
+
+Unless the server encounters an internal error which may cause it to return a 5xx status code, the server should return one of the status codes below and only those status codes:
+
+- `200 OK`
+- `400 Bad Request`
+- `401 Unauthorized`
+- `404 Not Found`
+
+#### `200 OK`
+
+The password was reset successfully for the associated account. The server should respond with a JSON payload but no fields are mandatory, i.e. an empty object `{}` is valid.
+
+#### `400 Bad Request`
+
+The JSON payload in the POST request is malformed, e.g. one or more fields may be missing. The server should respond with a JSON payload containing the following fields:
+
+- `"reason"`: The reason for the error, e.g. `"The old password and master password should not be provided simultaneously."`
+
+#### `401 Unauthorized`
+
+The provided password credentials are incorrect. It is acceptable to replace this response with `404 Not Found` in order to conceal sensitive information from potential attackers.
+
+The server should respond with a JSON payload containing the following fields:
+
+- `"reason"`: The reason for the rejection, e.g. `"The old password provided was incorrect."`
+
+#### `404 Not Found`
+
+The provided username did not match any account. It is acceptable to return this status code for an incorrect old/master password as well, in order to conceal sensitive information from potential attackers.
+
+The server should respond with a JSON payload containing the following fields:
+
+- `"reason"`: A short description of the error, e.g. `"The account does not exist or the password credentials you provided were incorrect."`
 
 ## Account login and logout
 
