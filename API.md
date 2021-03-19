@@ -153,8 +153,54 @@ The server should respond with a JSON payload containing the following fields:
 
 ## Account login and logout
 
+### `POST /login`
+
+Login to an account with the given username and password. The server expects a JSON payload containing the following fields:
+
+- `"username"`: The username associated with the account, e.g. `"johndoe"`
+- `"password"`: The plaintext password associated with the account, e.g. `"P@ssw0rd"`
+
+Unless a server error occurs in which case a 5xx status code should be returned, one of the following status codes should be returned by the server:
+
+- `200 OK`
+- `400 Bad Request`
+- `401 Unauthorized`
+- `404 Not Found`
+
+#### `200 OK`
+
+The login was successful. The server should respond with a JSON payload containing the following fields:
+
+- `"token"`: The login token associated with the login session, e.g. `"12345678"`
+
+#### `400 Bad Request`
+
+The request was malformed, e.g. one or more fields are missing. The server should respond with a JSON payload containing the following fields:
+
+- `"reason"`: A short description for the error, e.g. `"The username field is missing."`
+
+#### `401 Unauthorized`
+
+The login was unsuccessful due to an incorrect password. It is acceptable to return `404 Not Found` instead in order to conceal sensitive information from potential attackers.
+
+The server should respond with a JSON payload containing the following fields:
+
+- `"reason"`: A short description of the error, e.g. `"Incorrect password"`
+
+#### `404 Not Found`
+
+The provided username is not associated with an existing account. It is acceptable to return this status code for incorrect passwords as well, in order to conceal sensitive information from potential attackers.
+
+The server should respond with a JSON payload containing the following fields:
+
+- `"reason"`: A short description of the error, e.g. `"Incorrect username or password"`
+
+### `GET /logout`
+
 TODO
 
 ## Account actions
+
+### `GET /profile`
 
 TODO
