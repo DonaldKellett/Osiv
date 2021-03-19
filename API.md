@@ -38,7 +38,7 @@ This endpoint may return any of the following status codes and only these status
 
 - `201 Created`
 - `400 Bad Request`
-- `403 Unauthorized`
+- `401 Unauthorized`
 
 #### `201 Created`
 
@@ -48,17 +48,17 @@ The account (whether privileged or not) has been successfully created. A JSON ob
 
 The account has not been created due to missing or invalid POST data, e.g. the client forgot to include a username or the password is too short. This return code should also be used if an account associated with the provided username already exists.
 
-Note that an invalid master password when creating a privileged account should return `403 Unauthorized` instead. A missing master password when creating a privileged account can be handled either way.
+Note that an invalid master password when creating a privileged account should return `401 Unauthorized` instead. A missing master password when creating a privileged account can be handled either way.
 
 On `400 Bad Request`, a JSON object should be returned with the following fields:
 
 - `"reason"`: A short human-readable description of what user-invoked action caused the account creation to fail, e.g. `"The provided username must be between 1 and 32 characters."`
 
-#### `403 Unauthorized`
+#### `401 Unauthorized`
 
 The privileged account has not been created due to an invalid master password being supplied. A missing master password when creating a privileged account may also trigger this return code (if not, a `400 Bad Request` should be returned instead).
 
-On `403 Unauthorized`, a JSON object should be returned with the following fields:
+On `401 Unauthorized`, a JSON object should be returned with the following fields:
 
 - `"reason"`: A short human-readable description of what user-invoked action caused the account creation to fail, e.g. `"Master password was not as expected."`
 
@@ -76,7 +76,7 @@ This endpoint may return any of the following status codes and only these status
 
 - `204 No Content`
 - `400 Bad Request`
-- `403 Unauthorized`
+- `401 Unauthorized`
 - `404 Not Found`
 
 #### `204 No Content`
@@ -89,7 +89,7 @@ The JSON payload associated with the request is malformed, e.g. some fields are 
 
 - `"reason"`: A short human-readable description of the user-invoked error, e.g. `"The user's and master password fields should not appear simultaneously."`
 
-#### `403 Unauthorized`
+#### `401 Unauthorized`
 
 The account deletion request failed due to an incorrect password. Note that it is acceptable to replace this response with `404 Not Found` in order to conceal sensitive information from potential attackers; see below for more details.
 
