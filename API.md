@@ -205,6 +205,7 @@ Unless the server encounters an error in which case a 5xx status code should be 
 
 - `200 OK`
 - `400 Bad Request`
+- `401 Unauthorized`
 - `404 Not Found`
 
 #### `200 OK`
@@ -217,6 +218,14 @@ The request was malformed in some way, e.g. `token` was not provided. The server
 
 - `"reason"`: The reason for the error, e.g. `"Token was not provided."`
 
+#### `401 Unauthorized`
+
+The token was not associated with an existing login session. It is acceptable to return `404 Not Found` instead in this case.
+
+The server should reply with a JSON payload containing the following fields:
+
+- `"reason"`: The reason for the error, e.g. `"Token not associated with existing login session."`
+
 #### `404 Not Found`
 
 Any other error caused by the user. The server should reply with a JSON payload containing the following fields:
@@ -227,4 +236,43 @@ Any other error caused by the user. The server should reply with a JSON payload 
 
 ### `GET /profile`
 
-TODO
+Retrieve information about the user (their profile). Since user information is considered private, a logged in user can only view their own profile.
+
+The server expects the following query parameters:
+
+- `token`: The token associated with the current login session, e.g. `12345678`
+
+Unless a server error occurred in which case a 5xx status code should be returned, the server should return one of the following status codes below:
+
+- `200 OK`
+- `400 Bad Request`
+- `401 Unauthorized`
+- `404 Not Found`
+
+#### `200 OK`
+
+The request was successful and the logged in user is authorized to view his/her own profile. The server should respond with a JSON payload containing the following fields:
+
+- `"privileged"`: A boolean value indicating whether the current account is privileged
+- `"prettyName"`: The human-readable name associated with the account, e.g. `"John Doe"`
+- `"username"`: The username associated with the account, e.g. `"johndoe"`
+
+#### `400 Bad Request`
+
+The request was malformed, e.g. the `token` parameter is missing. The server should respond with a JSON payload containing the following fields:
+
+- `"reason"`: A short description of the error, e.g. `"Missing token parameter"`
+
+#### `401 Unauthorized`
+
+The login token is not associated with an existing session. It is acceptable to return `404 Not Found` instead in this case.
+
+The server should respond with a JSON payload containing the following fields:
+
+- `"reason"`: A short description of the error, e.g. `"Token not associated with login session"`
+
+#### `404 Not Found`
+
+Any other user error. The server should respond with a JSON payload containing the following fields:
+
+- `"reason"`: A short description of the error, e.g. `"Unknown user error"`
