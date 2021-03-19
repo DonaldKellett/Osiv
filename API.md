@@ -12,7 +12,7 @@ API version: `0.1.0`
 
 Returns metadata about the server.
 
-It should always return a `200 OK` status code, unless there is an internal server error in which a 5xx status code should be returned instead. No other status codes should be returned by this endpoint when accessed with the `GET` method.
+It should always return a `200 OK` status code, unless there is an internal server error in which a 5xx status code should be returned instead. No other status codes should be returned by this endpoint.
 
 #### `200 OK`
 
@@ -26,7 +26,7 @@ On `200 OK`, the server should return a JSON object with the following fields:
 
 ### `POST /signup`
 
-Signs up for an account. When this endpoint is used with POST, the server expects JSON data containing the following fields:
+Signs up for an account. When this endpoint is used, the server expects JSON data containing the following fields:
 
 - `"privileged"`: A boolean value indicating whether the account to be created is privileged
 - `"prettyName"`: A human-readable name associated with the account, e.g. `"John Doe"`. There should be as few restrictions on the format of this field as possible. For example, rejecting pretty names over 1024 characters would be acceptable, but rejecting any pretty name with non-alphanumeric characters would not be acceptable
@@ -62,7 +62,48 @@ On `403 Unauthorized`, a JSON object should be returned with the following field
 
 - `"reason"`: A short human-readable description of what user-invoked action caused the account creation to fail, e.g. `"Master password was not as expected."`
 
-TODO: endpoint for account deletion
+### `POST /delete`
+
+Deletes the account with the given username provided that the action is authorized with the user's password OR the master password. In a valid request to this endpoint, the user's password and master password should NOT be simultaneously provided.
+
+The server expects JSON data containing the following fields:
+
+- `"username"`: The username of the account to be deleted, e.g. `"johndoe"`
+- `"password"`: The plaintext password associated with the given username. Should NOT appear simultaneously with the `"masterPassword"` field
+- `"masterPassword"`: The master password in plaintext. Should NOT appear simultaneousy with the `"password"` field
+
+This endpoint may return any of the following status codes and only these status codes, unless there is a server error in which a 5xx status code is returned:
+
+- `204 No Content`
+- `400 Bad Request`
+- `403 Unauthorized`
+- `404 Not Found`
+
+#### `204 No Content`
+
+The account has been successfully deleted. No JSON payload is required.
+
+#### `400 Bad Request`
+
+The JSON payload associated with the request is malformed, e.g. some fields are missing. The server should respond with a JSON payload containing the following fields:
+
+- `"reason"`: A short human-readable description of the user-invoked error, e.g. `"The user's and master password fields should not appear simultaneously."`
+
+#### `403 Unauthorized`
+
+The account deletion request failed due to an incorrect password. Note that it is acceptable to replace this response with `404 Not Found` in order to conceal sensitive information from potential attackers; see below for more details.
+
+The server should respond with a JSON payload containing the following fields:
+
+- `"reason"`: A short human-readable description of the user-invoked error, e.g. `"The master password provided was incorrect."`
+
+#### `404 Not Found`
+
+The account associated with the given username was not found and therefore could not be deleted. Note that it is acceptable to return this response for incorrect passwords as well in order to conceal sensitive information from potential attackers.
+
+The server should respond with a JSON payload containing the following fields:
+
+- `"reason"`: A short human-readable description of the user-invoked error, e.g. `"The username could not be found or the supplied password is incorrect."`
 
 ## Account modification
 
