@@ -34,7 +34,35 @@ Signs up for an account. When this endpoint is used with POST, the server expect
 - `"password"`: The plaintext password for the account. The server may enforce sensible rules on the format of the password, e.g. they should be between 8 and 128 characters long, but please don't go overboard with this, e.g. requiring passwords to contain at least one uppercase letter, one lowercase, one digit and one special character is infuriating and does little to increase password security. Of course the server should not store the plaintext password as-is, but that is considered an implementation detail irrelevant to the API itself
 - `"masterPassword"`: Optional field that is only checked by the server when a privileged account is being created. The server should only ever accept a single master password as valid, and the master password should be kept secret
 
-TODO: define possible status code the server should return and the associated JSON payload
+This endpoint may return any of the following status codes and only these status codes, unless there is a server error in which a 5xx status code is returned:
+
+- `201 Created`
+- `400 Bad Request`
+- `403 Unauthorized`
+
+#### `201 Created`
+
+The account (whether privileged or not) has been successfully created. A JSON object should be returned, but there are no mandatory fields, i.e. an empty object `{}` is valid.
+
+#### `400 Bad Request`
+
+The account has not been created due to missing or invalid POST data, e.g. the client forgot to include a username or the password is too short. This return code should also be used if an account associated with the provided username already exists.
+
+Note that an invalid master password when creating a privileged account should return `403 Unauthorized` instead. A missing master password when creating a privileged account can be handled either way.
+
+On `400 Bad Request`, a JSON object should be returned with the following fields:
+
+- `"reason"`: A short human-readable description of what user-invoked action caused the account creation to fail, e.g. `"The provided username must be between 1 and 32 characters."`
+
+#### `403 Unauthorized`
+
+The privileged account has not been created due to an invalid master password being supplied. A missing master password when creating a privileged account may also trigger this return code (if not, a `400 Bad Request` should be returned instead).
+
+On `403 Unauthorized`, a JSON object should be returned with the following fields:
+
+- `"reason"`: A short human-readable description of what user-invoked action caused the account creation to fail, e.g. `"Master password was not as expected."`
+
+TODO: endpoint for account deletion
 
 ## Account modification
 
