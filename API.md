@@ -246,7 +246,7 @@ Unless a server error occurred in which case a 5xx status code should be returne
 
 - `200 OK`
 - `400 Bad Request`
-- `401 Unauthorized`
+- `403 Forbidden`
 - `404 Not Found`
 
 #### `200 OK`
@@ -263,7 +263,7 @@ The request was malformed, e.g. the `token` parameter is missing. The server sho
 
 - `"reason"`: A short description of the error, e.g. `"Missing token parameter"`
 
-#### `401 Unauthorized`
+#### `403 Forbidden`
 
 The login token is not associated with an existing session. It is acceptable to return `404 Not Found` instead in this case.
 
