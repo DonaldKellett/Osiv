@@ -37,7 +37,7 @@ To get started with Osiv:
 
 The behavior of the Web server can be further configured via two environment variables:
 
-- `OSIV_CONF_DIR`: Controls where the Web server reads its configuration. Defaults to `/path/to/your/Osiv/config`
+- `OSIV_CONF_BASE`: Controls where the Web server reads its configuration. Defaults to `/path/to/your/Osiv/config`
 - `PORT`: Controls which port the Web server listens to. Defaults to 3000
 
 ## Known Issues
