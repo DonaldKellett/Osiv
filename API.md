@@ -205,7 +205,7 @@ Unless the server encounters an error in which case a 5xx status code should be 
 
 - `200 OK`
 - `400 Bad Request`
-- `401 Unauthorized`
+- `403 Forbidden`
 - `404 Not Found`
 
 #### `200 OK`
@@ -218,7 +218,7 @@ The request was malformed in some way, e.g. `token` was not provided. The server
 
 - `"message"`: The reason for the error, e.g. `"Token was not provided."`
 
-#### `401 Unauthorized`
+#### `403 Forbidden`
 
 The token was not associated with an existing login session. It is acceptable to return `404 Not Found` instead in this case.
 
