@@ -3,7 +3,7 @@
 const path = require('path')
 const fs = require('fs')
 
-const OSIV_CONF_BASE = process.env.OSIV_CONF_BASE || __dirname
+const OSIV_CONF_BASE = process.env.OSIV_CONF_BASE || path.join(__dirname, 'config')
 try {
   const NAME = 'Osiv'
   const VERSION = '0.1.0'
