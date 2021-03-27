@@ -43,7 +43,7 @@ module.exports = async function (fastify, opts) {
       await connection.awaitEnd()
       return {}
     } catch (err) {
-      if (err.message === 'jwt malformed')
+      if (err.message === 'jwt malformed' || err.message === 'invalid signature')
         return reply.status(400).send(err)
       return reply.status(500).send(err)
     }
