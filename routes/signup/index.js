@@ -14,7 +14,6 @@ const bodyJsonSchema = S.object()
   .prop('password', S.string()).required()
   .prop('masterPassword', S.string())
 const schema = { body: bodyJsonSchema }
-// Credits: https://unix.stackexchange.com/a/435120
 
 module.exports = async function (fastify, opts) {
   fastify.post('/', { schema }, async function (request, reply) {
