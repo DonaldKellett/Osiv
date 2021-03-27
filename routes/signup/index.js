@@ -6,6 +6,7 @@ const mysql = require('mysql-await')
 const { escape } = require('mysql')
 const bcrypt = require('bcrypt')
 const creds = require('../../creds')
+const config = require('../../config')
 
 const DB_PW = creds.dbPw
 const MASTER_PW = creds.masterPw
@@ -17,8 +18,8 @@ const bodyJsonSchema = S.object()
   .prop('masterPassword', S.string())
 const schema = { body: bodyJsonSchema }
 // Credits: https://unix.stackexchange.com/a/435120
-const VALID_USERNAME = /^[a-z_]([a-z0-9_-]{0,31}|[a-z0-9_-]{0,30}\$)$/
-const SALT_ROUNDS = 10
+const VALID_USERNAME = config.validUsername
+const SALT_ROUNDS = config.saltRounds
 
 module.exports = async function (fastify, opts) {
   fastify.post('/', { schema }, async function (request, reply) {
