@@ -52,7 +52,7 @@ Note that an invalid master password when creating a privileged account should r
 
 On `400 Bad Request`, a JSON object should be returned with the following fields:
 
-- `"reason"`: A short human-readable description of what user-invoked action caused the account creation to fail, e.g. `"The provided username must be between 1 and 32 characters."`
+- `"message"`: A short human-readable description of what user-invoked action caused the account creation to fail, e.g. `"The provided username must be between 1 and 32 characters."`
 
 #### `401 Unauthorized`
 
@@ -60,7 +60,7 @@ The privileged account has not been created due to an invalid master password be
 
 On `401 Unauthorized`, a JSON object should be returned with the following fields:
 
-- `"reason"`: A short human-readable description of what user-invoked action caused the account creation to fail, e.g. `"Master password was not as expected."`
+- `"message"`: A short human-readable description of what user-invoked action caused the account creation to fail, e.g. `"Master password was not as expected."`
 
 ### `POST /delete`
 
@@ -87,7 +87,7 @@ The account has been successfully deleted. No JSON payload is required.
 
 The JSON payload associated with the request is malformed, e.g. some fields are missing. The server should respond with a JSON payload containing the following fields:
 
-- `"reason"`: A short human-readable description of the user-invoked error, e.g. `"The user's and master password fields should not appear simultaneously."`
+- `"message"`: A short human-readable description of the user-invoked error, e.g. `"The user's and master password fields should not appear simultaneously."`
 
 #### `401 Unauthorized`
 
@@ -95,7 +95,7 @@ The account deletion request failed due to an incorrect password. Note that it i
 
 The server should respond with a JSON payload containing the following fields:
 
-- `"reason"`: A short human-readable description of the user-invoked error, e.g. `"The master password provided was incorrect."`
+- `"message"`: A short human-readable description of the user-invoked error, e.g. `"The master password provided was incorrect."`
 
 #### `404 Not Found`
 
@@ -103,7 +103,7 @@ The account associated with the given username was not found and therefore could
 
 The server should respond with a JSON payload containing the following fields:
 
-- `"reason"`: A short human-readable description of the user-invoked error, e.g. `"The username could not be found or the supplied password is incorrect."`
+- `"message"`: A short human-readable description of the user-invoked error, e.g. `"The username could not be found or the supplied password is incorrect."`
 
 ## Account modification
 
@@ -133,7 +133,7 @@ The password was reset successfully for the associated account. The server shoul
 
 The JSON payload in the POST request is malformed, e.g. one or more fields may be missing. The server should respond with a JSON payload containing the following fields:
 
-- `"reason"`: The reason for the error, e.g. `"The old password and master password should not be provided simultaneously."`
+- `"message"`: The reason for the error, e.g. `"The old password and master password should not be provided simultaneously."`
 
 #### `401 Unauthorized`
 
@@ -141,7 +141,7 @@ The provided password credentials are incorrect. It is acceptable to replace thi
 
 The server should respond with a JSON payload containing the following fields:
 
-- `"reason"`: The reason for the rejection, e.g. `"The old password provided was incorrect."`
+- `"message"`: The reason for the rejection, e.g. `"The old password provided was incorrect."`
 
 #### `404 Not Found`
 
@@ -149,7 +149,7 @@ The provided username did not match any account. It is acceptable to return this
 
 The server should respond with a JSON payload containing the following fields:
 
-- `"reason"`: A short description of the error, e.g. `"The account does not exist or the password credentials you provided were incorrect."`
+- `"message"`: A short description of the error, e.g. `"The account does not exist or the password credentials you provided were incorrect."`
 
 ## Account login and logout
 
@@ -177,7 +177,7 @@ The login was successful. The server should respond with a JSON payload containi
 
 The request was malformed, e.g. one or more fields are missing. The server should respond with a JSON payload containing the following fields:
 
-- `"reason"`: A short description for the error, e.g. `"The username field is missing."`
+- `"message"`: A short description for the error, e.g. `"The username field is missing."`
 
 #### `401 Unauthorized`
 
@@ -185,7 +185,7 @@ The login was unsuccessful due to an incorrect password. It is acceptable to ret
 
 The server should respond with a JSON payload containing the following fields:
 
-- `"reason"`: A short description of the error, e.g. `"Incorrect password"`
+- `"message"`: A short description of the error, e.g. `"Incorrect password"`
 
 #### `404 Not Found`
 
@@ -193,7 +193,7 @@ The provided username is not associated with an existing account. It is acceptab
 
 The server should respond with a JSON payload containing the following fields:
 
-- `"reason"`: A short description of the error, e.g. `"Incorrect username or password"`
+- `"message"`: A short description of the error, e.g. `"Incorrect username or password"`
 
 ### `GET /logout`
 
@@ -216,7 +216,7 @@ The login session was successfully invalidated, i.e. the user logged out success
 
 The request was malformed in some way, e.g. `token` was not provided. The server should reply with a JSON payload containing the following fields:
 
-- `"reason"`: The reason for the error, e.g. `"Token was not provided."`
+- `"message"`: The reason for the error, e.g. `"Token was not provided."`
 
 #### `401 Unauthorized`
 
@@ -224,13 +224,13 @@ The token was not associated with an existing login session. It is acceptable to
 
 The server should reply with a JSON payload containing the following fields:
 
-- `"reason"`: The reason for the error, e.g. `"Token not associated with existing login session."`
+- `"message"`: The reason for the error, e.g. `"Token not associated with existing login session."`
 
 #### `404 Not Found`
 
 Any other error caused by the user. The server should reply with a JSON payload containing the following fields:
 
-- `"reason"`: The reason for the error, e.g. `"Unknown user error."`
+- `"message"`: The reason for the error, e.g. `"Unknown user error."`
 
 ## Account actions
 
@@ -261,7 +261,7 @@ The request was successful and the logged in user is authorized to view his/her 
 
 The request was malformed, e.g. the `token` parameter is missing. The server should respond with a JSON payload containing the following fields:
 
-- `"reason"`: A short description of the error, e.g. `"Missing token parameter"`
+- `"message"`: A short description of the error, e.g. `"Missing token parameter"`
 
 #### `403 Forbidden`
 
@@ -269,10 +269,10 @@ The login token is not associated with an existing session. It is acceptable to 
 
 The server should respond with a JSON payload containing the following fields:
 
-- `"reason"`: A short description of the error, e.g. `"Token not associated with login session"`
+- `"message"`: A short description of the error, e.g. `"Token not associated with login session"`
 
 #### `404 Not Found`
 
 Any other user error. The server should respond with a JSON payload containing the following fields:
 
-- `"reason"`: A short description of the error, e.g. `"Unknown user error"`
+- `"message"`: A short description of the error, e.g. `"Unknown user error"`
