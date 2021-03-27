@@ -7,7 +7,12 @@ const OSIV_CONF_BASE = process.env.OSIV_CONF_BASE || __dirname
 try {
   const NAME = 'Osiv'
   const VERSION = '0.1.0'
-  const TIMEOUT = 86400
+  const TIMEOUT = +fs.readFileSync(path.join(OSIV_CONF_BASE, 'timeout'))
+    .toString()
+    .slice(0, -1)
+  const DB_HOST = fs.readFileSync(path.join(OSIV_CONF_BASE, 'db-host'))
+    .toString()
+    .slice(0, -1)
   const DB_PW = fs.readFileSync(path.join(OSIV_CONF_BASE, 'db-pw'))
     .toString()
     .slice(0, -1)
@@ -23,6 +28,7 @@ try {
     NAME,
     VERSION,
     TIMEOUT,
+    DB_HOST,
     DB_PW,
     MASTER_PW,
     JWT_SECRET,

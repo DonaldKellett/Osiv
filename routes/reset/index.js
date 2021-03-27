@@ -30,7 +30,7 @@ module.exports = async function (fastify, opts) {
       return reply.status(400).send({ message: 'The password supplied must be between 8 and 50 characters long' })
     try {
       let connection = mysql.createConnection({
-        host: 'localhost',
+        host: config.DB_HOST,
         user: 'osiv',
         password: config.DB_PW,
         database: 'osiv'

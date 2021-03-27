@@ -28,7 +28,7 @@ module.exports = async function (fastify, opts) {
       return reply.status(401).send({ message: 'Attempted to create privileged account with incorrect or missing master password' })
     try {
       let connection = mysql.createConnection({
-        host: 'localhost',
+        host: config.DB_HOST,
         user: 'osiv',
         password: config.DB_PW,
         database: 'osiv'
