@@ -4,7 +4,7 @@ This document defines the Osiv API. An HTTP(S) server conforming to the API by e
 
 Note that all responses below are assumed to be JSON unless otherwise specified.
 
-API version: `0.1.0`
+API version: `0.1.1`
 
 ## Server Metadata
 

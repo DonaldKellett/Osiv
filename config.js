@@ -6,7 +6,7 @@ const fs = require('fs')
 const OSIV_CONF_BASE = process.env.OSIV_CONF_BASE || path.join(__dirname, 'config')
 try {
   const NAME = 'Osiv'
-  const VERSION = '0.1.0'
+  const VERSION = '0.1.1'
   const TIMEOUT = +fs.readFileSync(path.join(OSIV_CONF_BASE, 'timeout'))
     .toString()
     .slice(0, -1)
