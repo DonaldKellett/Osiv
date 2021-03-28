@@ -33,7 +33,8 @@ To get started with Osiv:
 1. (Recommended) Run suitable queries on the MySQL server to change the password for the MySQL `osiv` user (default: `P@ssw0rd`) and update `config/db-pw` accordingly to instruct the Web server to connect to the database server using this new password
 1. (Recommended) Edit `config/jwt-secret` and `config/master-pw` accordingly to set a new JWT secret and master password respectively
 1. (Optional) Edit `config/timeout` to modify the login timeout for users
-1. Ensuring that you are in the root directory of this repo, run `$ npm start` to start the Web server at port 3000, and enjoy :-)
+1. Ensuring that you are in the root directory of this repo, run `$ npm install` to install all the required Node.js modules and dependencies
+1. Run `$ npm start` to start the Web server at port 3000 and enjoy :-)
 
 The behavior of the Web server can be further configured via two environment variables:
 
