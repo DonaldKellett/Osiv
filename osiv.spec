@@ -48,11 +48,15 @@ mkdir -p %{buildroot}/%{_datadir}/osiv/plugins
 cp plugins/support.js %{buildroot}/%{_datadir}/osiv/plugins/support.js
 cp plugins/sensible.js %{buildroot}/%{_datadir}/osiv/plugins/sensible.js
 mkdir -p %{buildroot}/%{_sysconfdir}/osiv
-cp --preserve=mode config/timeout %{buildroot}/%{_sysconfdir}/osiv/timeout
-cp --preserve=mode config/master-pw %{buildroot}/%{_sysconfdir}/osiv/master-pw
-cp --preserve=mode config/jwt-secret %{buildroot}/%{_sysconfdir}/osiv/jwt-secret
-cp --preserve=mode config/db-pw %{buildroot}/%{_sysconfdir}/osiv/db-pw
-cp --preserve=mode config/db-host %{buildroot}/%{_sysconfdir}/osiv/db-host
+cp config/timeout %{buildroot}/%{_sysconfdir}/osiv/timeout
+cp config/master-pw %{buildroot}/%{_sysconfdir}/osiv/master-pw
+cp config/jwt-secret %{buildroot}/%{_sysconfdir}/osiv/jwt-secret
+cp config/db-pw %{buildroot}/%{_sysconfdir}/osiv/db-pw
+cp config/db-host %{buildroot}/%{_sysconfdir}/osiv/db-host
+chmod 600 %{buildroot}/%{_sysconfdir}/osiv/master-pw
+chmod 600 %{buildroot}/%{_sysconfdir}/osiv/jwt-secret
+chmod 600 %{buildroot}/%{_sysconfdir}/osiv/db-pw
+chmod 600 %{buildroot}/%{_sysconfdir}/osiv/db-host
 cp osiv.sql %{buildroot}/%{_datadir}/osiv/osiv.sql
 cat > osiv.sh << EOF
 #!/bin/bash
