@@ -30,6 +30,7 @@ cp package.json %{buildroot}/%{_datadir}/osiv/package.json
 cp package-lock.json %{buildroot}/%{_datadir}/osiv/package-lock.json
 cp config.js %{buildroot}/%{_datadir}/osiv/config.js
 cp app.js %{buildroot}/%{_datadir}/osiv/app.js
+cp README.md %{buildroot}/%{_datadir}/osiv/README.md
 cp LICENSE %{buildroot}/%{_datadir}/osiv/LICENSE
 cp API.md %{buildroot}/%{_datadir}/osiv/API.md
 mkdir -p %{buildroot}/%{_datadir}/osiv/routes
@@ -44,6 +45,8 @@ mkdir -p %{buildroot}/%{_datadir}/osiv/routes/login
 cp routes/login/index.js %{buildroot}/%{_datadir}/osiv/routes/login/index.js
 mkdir -p %{buildroot}/%{_datadir}/osiv/routes/delete
 cp routes/delete/index.js %{buildroot}/%{_datadir}/osiv/routes/delete/index.js
+mkdir -p %{buildroot}/%{_datadir}/osiv/routes/profile
+cp routes/profile/index.js %{buildroot}/%{_datadir}/osiv/routes/profile/index.js
 mkdir -p %{buildroot}/%{_datadir}/osiv/plugins
 cp plugins/support.js %{buildroot}/%{_datadir}/osiv/plugins/support.js
 cp plugins/sensible.js %{buildroot}/%{_datadir}/osiv/plugins/sensible.js
@@ -139,6 +142,7 @@ cp osiv.service %{buildroot}/usr/lib/systemd/system/osiv.service
 %{_datadir}/osiv/package-lock.json
 %{_datadir}/osiv/config.js
 %{_datadir}/osiv/app.js
+%doc %{_datadir}/osiv/README.md
 %license %{_datadir}/osiv/LICENSE
 %{_datadir}/osiv/API.md
 %{_datadir}/osiv/routes/root.js
@@ -147,17 +151,20 @@ cp osiv.service %{buildroot}/usr/lib/systemd/system/osiv.service
 %{_datadir}/osiv/routes/logout/index.js
 %{_datadir}/osiv/routes/login/index.js
 %{_datadir}/osiv/routes/delete/index.js
+%{_datadir}/osiv/routes/profile/index.js
 %{_datadir}/osiv/plugins/support.js
 %{_datadir}/osiv/plugins/sensible.js
-%{_sysconfdir}/osiv/timeout
-%{_sysconfdir}/osiv/master-pw
-%{_sysconfdir}/osiv/jwt-secret
-%{_sysconfdir}/osiv/db-pw
-%{_sysconfdir}/osiv/db-host
+%config(noreplace) %{_sysconfdir}/osiv/timeout
+%config(noreplace) %{_sysconfdir}/osiv/master-pw
+%config(noreplace) %{_sysconfdir}/osiv/jwt-secret
+%config(noreplace) %{_sysconfdir}/osiv/db-pw
+%config(noreplace) %{_sysconfdir}/osiv/db-host
 %{_datadir}/osiv/osiv.sql
 %{_bindir}/osiv
 /usr/lib/systemd/system/osiv.service
 
 %changelog
-* Sun Mar 28 2021 Donald Sebastian Leung <donaldsebleung@gmail.com> - 0.1.2-1
+* Tue Mar 30 2021 Donald Sebastian Leung <donaldsebleung@gmail.com> - 0.1.2-1
+- Second osiv package
+* Sun Mar 28 2021 Donald Sebastian Leung <donaldsebleung@gmail.com> - 0.1.1-1
 - First osiv package
