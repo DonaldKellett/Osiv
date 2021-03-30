@@ -43,10 +43,10 @@ The behavior of the Web server can be further configured via two environment var
 
 ### Using the provided RPM
 
-If using the provided binary RPM `osiv-0.1.1-1.el8.noarch.rpm` (Linux only, only tested on CentOS 8 Stream):
+If using the provided binary RPM `osiv-0.1.2-1.el8.noarch.rpm` (Linux only, only tested on CentOS 8 Stream):
 
 1. Download the RPM package to your (Red Hat-based) Linux system
-1. Install from the package: `$ sudo dnf install /path/to/your/osiv-0.1.1-1.el8.noarch.rpm`
+1. Install from the package: `$ sudo dnf install /path/to/your/osiv-0.1.2-1.el8.noarch.rpm`
 1. Run the initialization script:
    
    ```bash

@@ -1,4 +1,4 @@
-%global version 0.1.1
+%global version 0.1.2
 
 Name: osiv
 Version: %{version}
@@ -159,5 +159,5 @@ cp osiv.service %{buildroot}/usr/lib/systemd/system/osiv.service
 /usr/lib/systemd/system/osiv.service
 
 %changelog
-* Sun Mar 28 2021 Donald Sebastian Leung <donaldsebleung@gmail.com> - 0.1.1-1
+* Sun Mar 28 2021 Donald Sebastian Leung <donaldsebleung@gmail.com> - 0.1.2-1
 - First osiv package
