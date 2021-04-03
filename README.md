@@ -43,7 +43,7 @@ The behavior of the Web server can be further configured via two environment var
 
 ### Using the provided RPM
 
-If using the provided binary RPM `osiv-0.1.2-1.el8.noarch.rpm` (Linux only, only tested on CentOS 8 Stream):
+If using the provided binary RPM `osiv-0.1.2-1.el8.noarch.rpm` (only tested on CentOS 8 Stream):
 
 1. Download the RPM package to your (Red Hat-based) Linux system
 1. Install from the package: `$ sudo dnf install /path/to/your/osiv-0.1.2-1.el8.noarch.rpm`
@@ -61,6 +61,10 @@ If using the provided binary RPM `osiv-0.1.2-1.el8.noarch.rpm` (Linux only, only
 1. (Optional) Edit `/etc/osiv/timeout` to modify the login timeout for users
 1. Start the Osiv web service as root: `$ sudo systemctl start osiv`
 1. Enjoy :-)
+
+### Using the provided deb
+
+If using the provided binary deb `osiv_0.1.2_all.deb` (only tested on Ubuntu 20.04 server), follow all the instructions in "Using the provided RPM" section above, except replace the dnf installation command with the APT equivalent: `$ sudo apt install /path/to/your/osiv_0.1.2_all.deb`
 
 ## Known Issues
 
