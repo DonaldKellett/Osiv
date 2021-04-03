@@ -69,8 +69,7 @@ If using the provided binary deb `osiv_0.1.2_all.deb` (only tested on Ubuntu 20.
 ## Known Issues
 
 - The `GET /logout` endpoint does not actually invalidate the JWT login token since JWT tokens cannot be invalidated and maintaining a blacklist of invalidated tokens in-memory violates the REST principle. This should not pose a major security risk as long as the client discards the login token on logout and prevents it from leaking to untrusted third parties before the token expires. But then, Osiv is not meant for production use out-of-the-box anyway since it uses HTTP by default instead of HTTPS, voiding any and all security guarantees (-:
-- For the RPM version, running `$ sudo osiv --init` as a regular user belonging to the `wheel`/`sudo` group fails with a permission denied error during the `npm install` stage. This has probably something to do with real vs. effective UID but the exact cause is yet to be determined
-- For the deb version, apart from the issue with the RPM version which is also present in the deb version, the sensitive configuration files `db-host`, `db-pw`, `jwt-secret` and `master-pw` (under `/etc/osiv`) are currently installed with permissions `0644` (should be `0600`), i.e. they are world-readable
+- For the RPM and deb versions, running `$ sudo osiv --init` as a regular user belonging to the `wheel`/`sudo` group fails with a permission denied error during the `npm install` stage. This has probably something to do with real vs. effective UID but the exact cause is yet to be determined
 
 ## License
 
