@@ -13,7 +13,7 @@ Of course, it is not a hard requirement that "privileged" users have more rights
 
 ## Why the name?
 
-Osiv is a shorter version of the name [Osiver](https://github.com/DonaldKellett/Osiver), the backend server powering the Reviso mobile application. The abbreviation Osiv highlights the fact that this mini-project served as the prototype for Osiver.
+Osiv is a shorter version of the name [Osiver](https://github.com/DonaldKellett/Osiver), the backend server powering the [Reviso](https://github.com/ashrestha1/Reviso) mobile application. The abbreviation Osiv highlights the fact that this mini-project served as the prototype for Osiver.
 
 ## API
 
